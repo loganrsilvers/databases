@@ -1,0 +1,35 @@
+//  Query 1: Find all documents where qualityControlProcess is "V020" and data source is "4".
+// Display these fields: callLetters, qualityControlProcess, dataSource, elevation.
+
+db.collection.find(
+  { qualityControlProcess: "V020", dataSource: "4" },
+  { _id: 0, callLetters: 1, qualityControlProcess: 1, dataSource: 1, elevation: 1 }
+);
+
+// Query 2: Find all documents where the rate of the wind speed is greater than 10 and less than 15
+// Display these fields: callLetters, qualityControlProcess, dataSource, elevation, wind.speed.rate.  
+
+db.collection.find(
+  { "wind.speed.rate": { $gt: 10, $lt: 15 } },
+  { _id: 0, callLetters: 1, qualityControlProcess: 1, dataSource: 1, elevation: 1, "wind.speed.rate": 1 }
+);
+
+// Data Update 1:
+// Insert a new document into the collection with call letters "TEST123", qualityControlProcess "V999", dataSource "9", and elevation 30.
+
+db.collection.insertOne({
+  callLetters: "TEST123",
+  qualityControlProcess: "V999",
+  dataSource: "9",
+  elevation: 30
+});
+
+// Data Update 2:
+// Find your newly inserted document to confirm it was added.
+
+db.collection.find({ callLetters: "TEST123" });
+
+// Data Update 3:
+// Delete the document you just added to clean up the collection.
+
+db.collection.deleteOne({ callLetters: "TEST123" });
